@@ -1,0 +1,27 @@
+service: lambda-layer-example
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: eu-west-1
+  profile: default
+  environment:
+    NODE_PATH: "./:/opt/node_modules"
+
+layers:
+  MomentNodeModule:
+    path: moment-layer
+    description: "Moment node module"
+
+functions:
+  hello:
+    handler: handler.handler
+    events:
+      - http:
+          path: /
+          method: get
+          cors: true
+    layers:
+      - {Ref: MomentNodeModuleLambdaLayer}
