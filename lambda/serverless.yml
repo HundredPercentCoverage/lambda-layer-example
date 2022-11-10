@@ -1,6 +1,8 @@
-service: lambda-layer-example
+service: lambda-layer-service
 
 frameworkVersion: '3'
+
+useDotenv: true
 
 provider:
   name: aws
@@ -9,11 +11,6 @@ provider:
   profile: default
   environment:
     NODE_PATH: "./:/opt/node_modules"
-
-layers:
-  MomentNodeModule:
-    path: moment-layer
-    description: "Moment node module"
 
 functions:
   hello:
@@ -24,4 +21,4 @@ functions:
           method: get
           cors: true
     layers:
-      - {Ref: MomentNodeModuleLambdaLayer}
+      - ${env:LAYER_ARN}
