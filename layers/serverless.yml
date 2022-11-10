@@ -1,0 +1,21 @@
+service: moment-layer
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  region: eu-west-1
+  profile: default
+
+layers:
+  MomentNodeModule:
+    path: moment-layer
+    description: "Moment package layer"
+
+resources:
+  Outputs:
+    MomentLayerExport:
+      Value:
+        Ref: MomentNodeModuleLambdaLayer
+      Export:
+        Name: MomentNodeModuleLambdaLayer
